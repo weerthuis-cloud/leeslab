@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leeslab — KSH Haarlemmermeer</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --kaart: #ffffff;
+    --tekst: #2a2a2a;
+    --accent: #6b4f3a;
+    --accent-licht: #a4856a;
+    --rand: #e3ddd2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--tekst);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .wrap {
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    margin: 0 0 8px;
+    letter-spacing: 0.5px;
+  }
+  .ondertitel {
+    color: var(--accent-licht);
+    font-style: italic;
+    margin: 0 0 36px;
+    font-size: 1.1rem;
+  }
+  .keuzes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 540px) {
+    .keuzes { grid-template-columns: 1fr; }
+  }
+  a.kaart {
+    display: block;
+    background: var(--kaart);
+    border: 1px solid var(--rand);
+    border-radius: 12px;
+    padding: 28px 22px;
+    text-decoration: none;
+    color: var(--tekst);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  a.kaart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 79, 58, 0.15);
+    border-color: var(--accent-licht);
+  }
+  a.kaart h2 {
+    margin: 0 0 6px;
+    color: var(--accent);
+    font-size: 1.4rem;
+  }
+  a.kaart p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #5b5b5b;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .voet {
+    font-size: 0.85rem;
+    color: #888;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .voet code {
+    background: #ece7dc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Leeslab</h1>
+    <p class="ondertitel">Literatuurportaal Nederlands &middot; KSH Haarlemmermeer</p>
+
+    <div class="keuzes">
+      <a class="kaart" href="leerlingportaal_v0.7.19.html">
+        <h2>Voor leerlingen</h2>
+        <p>Themalijst, leeslijst en literaire portfolio</p>
+      </a>
+      <a class="kaart" href="docent_v0.39.html">
+        <h2>Voor docenten</h2>
+        <p>Klassen, voortgang en mondeling</p>
+      </a>
+    </div>
+
+    <p class="voet">
+      Testronde &middot; leerlingportaal <code>v0.7.19</code> &middot; docentenportaal <code>v0.39</code>
+    </p>
+  </div>
+</body>
+</html>
