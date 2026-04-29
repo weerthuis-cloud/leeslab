@@ -6,13 +6,13 @@ Dit is een testversie. Het doel van deze publicatie is een eerste evaluatieronde
 
 ## Wat staat hier live
 
-- `index.html` — landingspagina met doorlinks
+- `index.html` — gedeelde inlogpagina (v0.2) voor leerlingen en docenten
 - `leerlingportaal_v0.7.19.html` — leerlingomgeving (themalijst, leeslijst, portfolio)
 - `docent_v0.39.html` — docentenomgeving (klassen, voortgang, mondeling)
 
 ## Hoe testen
 
-Open de Pages-URL en kies "Voor docenten" of "Voor leerlingen". Inloggen gaat via een testaccount dat je van mij krijgt. Maak nog geen accounts zelf aan; de docent-zichtbaarheid en klassenkoppelingen worden centraal beheerd.
+Open de Pages-URL. Je komt direct op het gedeelde inlogscherm. Inloggen gaat via een testaccount dat je van mij krijgt; op basis van je rol (leerling of docent) word je automatisch naar de juiste omgeving gestuurd. Maak nog geen accounts zelf aan; de docent-zichtbaarheid en klassenkoppelingen worden centraal beheerd.
 
 Wat je vooral wil bekijken:
 - of de inlog werkt
@@ -30,4 +30,4 @@ Geen leerlingdata in deze repo. Geen externe analytics. Bij positieve evaluatie 
 
 ## Versie
 
-Testronde april 2026.
+Testronde april 2026. Entry-pagina v0.2 (29-04-2026): split-keuze vervangen door gedeelde inlog in KSH-stijl met automatische rol-redirect.

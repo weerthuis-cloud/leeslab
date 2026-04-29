@@ -4,110 +4,236 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leeslab — KSH Haarlemmermeer</title>
+<!--
+  Leeslab entry-pagina v0.2 (29-04-2026)
+  Gedeelde inlog voor leerlingen en docenten in oude KSH-kleurstelling.
+  Na succesvolle login: rol uit profiles -> redirect naar leerling- of docentenportaal.
+  Vorige versie: ../_archief_landing/index_leeslab_v0.1.html (Leeslab cream-landing met split-keuze)
+-->
 <style>
   :root {
-    --bg: #f7f5f0;
-    --kaart: #ffffff;
-    --tekst: #2a2a2a;
-    --accent: #6b4f3a;
-    --accent-licht: #a4856a;
-    --rand: #e3ddd2;
+    --ksh-blauw: #003a70;
+    --ksh-blauw-licht: #1a5599;
+    --ksh-blauw-diep: #002347;
+    --ksh-oranje: #f39200;
+    --ksh-oranje-licht: #ffb94d;
+    --grijs-tekst: #2a2a2a;
+    --grijs-secundair: #6b7280;
+    --grijs-rand: #d1d5db;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; height: 100%; }
   body {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    background: var(--bg);
-    color: var(--tekst);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--grijs-tekst);
+    background: linear-gradient(135deg, var(--ksh-blauw) 0%, var(--ksh-blauw-diep) 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
   }
-  .wrap {
-    max-width: 720px;
+  .login-kaart {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 2rem 1.5rem;
     width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  .logo-groot {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--ksh-blauw);
+    color: white; font-weight: 700; font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+  h2 {
+    margin: 0 0 .3rem;
+    text-align: center;
+    color: var(--ksh-blauw);
+    font-size: 1.5rem;
+  }
+  .login-sub {
+    margin: 0 0 1.5rem;
+    text-align: center;
+    color: var(--grijs-secundair);
+    font-size: .95rem;
+  }
+  label {
+    display: block;
+    font-size: .9rem;
+    font-weight: 600;
+    margin: .8rem 0 .3rem;
+    color: var(--grijs-tekst);
+  }
+  input {
+    width: 100%;
+    padding: .7rem .9rem;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1.5px solid var(--grijs-rand);
+    border-radius: 8px;
+    background: #fafbfc;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--ksh-blauw);
+    background: white;
+  }
+  button {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: .8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background: var(--ksh-oranje);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+    font-family: inherit;
+  }
+  button:hover { background: var(--ksh-oranje-licht); }
+  button:disabled { opacity: .6; cursor: not-allowed; }
+  .login-fout {
+    color: #b40000;
+    font-size: .9rem;
+    margin-top: .8rem;
+    min-height: 1.2em;
     text-align: center;
   }
-  h1 {
-    font-size: clamp(2.4rem, 6vw, 3.4rem);
-    margin: 0 0 8px;
-    letter-spacing: 0.5px;
-  }
-  .ondertitel {
-    color: var(--accent-licht);
-    font-style: italic;
-    margin: 0 0 36px;
-    font-size: 1.1rem;
-  }
-  .keuzes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-bottom: 32px;
-  }
-  @media (max-width: 540px) {
-    .keuzes { grid-template-columns: 1fr; }
-  }
-  a.kaart {
-    display: block;
-    background: var(--kaart);
-    border: 1px solid var(--rand);
-    border-radius: 12px;
-    padding: 28px 22px;
-    text-decoration: none;
-    color: var(--tekst);
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-  }
-  a.kaart:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107, 79, 58, 0.15);
-    border-color: var(--accent-licht);
-  }
-  a.kaart h2 {
-    margin: 0 0 6px;
-    color: var(--accent);
-    font-size: 1.4rem;
-  }
-  a.kaart p {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #5b5b5b;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+  .login-info {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--grijs-rand);
+    font-size: .8rem;
+    color: var(--grijs-secundair);
+    text-align: center;
+    line-height: 1.5;
   }
   .voet {
-    font-size: 0.85rem;
-    color: #888;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    position: fixed;
+    bottom: 12px;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255,255,255,.55);
+    font-size: .75rem;
   }
   .voet code {
-    background: #ece7dc;
-    padding: 2px 6px;
+    background: rgba(255,255,255,.12);
+    padding: 1px 6px;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: .72rem;
+    color: rgba(255,255,255,.75);
   }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Leeslab</h1>
-    <p class="ondertitel">Literatuurportaal Nederlands &middot; KSH Haarlemmermeer</p>
+  <div class="login-kaart">
+    <div class="logo-groot">KSH</div>
+    <h2>Leeslab</h2>
+    <p class="login-sub">Log in met je schoolaccount</p>
 
-    <div class="keuzes">
-      <a class="kaart" href="leerlingportaal_v0.7.19.html">
-        <h2>Voor leerlingen</h2>
-        <p>Themalijst, leeslijst en literaire portfolio</p>
-      </a>
-      <a class="kaart" href="docent_v0.39.html">
-        <h2>Voor docenten</h2>
-        <p>Klassen, voortgang en mondeling</p>
-      </a>
+    <form id="login-form" autocomplete="on">
+      <label for="login-email">E-mailadres</label>
+      <input id="login-email" type="email" required autocomplete="username" autofocus>
+
+      <label for="login-pw">Wachtwoord</label>
+      <input id="login-pw" type="password" required autocomplete="current-password">
+
+      <button id="login-submit" type="submit">Inloggen</button>
+      <div id="login-fout" class="login-fout" aria-live="polite"></div>
+    </form>
+
+    <div class="login-info">
+      KSH Haarlemmermeer, Nederlands bovenbouw.<br>
+      Problemen met inloggen? Mail je docent.
     </div>
-
-    <p class="voet">
-      Testronde &middot; leerlingportaal <code>v0.7.19</code> &middot; docentenportaal <code>v0.39</code>
-    </p>
   </div>
+
+  <p class="voet">
+    Testronde &middot; leerlingportaal <code>v0.7.19</code> &middot; docentenportaal <code>v0.39</code>
+  </p>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // Publishable (anon) key - clientside, RLS op de DB voorkomt schrijfrechten.
+  const SUPABASE = {
+    url: 'https://vygkciuiptfyridhrxbp.supabase.co',
+    key: 'sb_publishable_u-EHJ6MaNTuPnO3SLWGEWA_IKGbFHlh'
+  };
+  const LEERLING_URL = 'leerlingportaal_v0.7.19.html';
+  const DOCENT_URL   = 'docent_v0.39.html';
+
+  const sb = supabase.createClient(SUPABASE.url, SUPABASE.key, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
+  });
+
+  const formEl   = document.getElementById('login-form');
+  const emailEl  = document.getElementById('login-email');
+  const pwEl     = document.getElementById('login-pw');
+  const btnEl    = document.getElementById('login-submit');
+  const foutEl   = document.getElementById('login-fout');
+
+  function setBezig(bezig) {
+    btnEl.disabled = bezig;
+    btnEl.textContent = bezig ? 'Bezig met inloggen...' : 'Inloggen';
+  }
+  function toonFout(msg) { foutEl.textContent = msg || ''; }
+
+  async function rolEnRedirect(userId) {
+    // Rol uit profiles - zelfde bron als de portalen zelf gebruiken.
+    let rol = 'leerling';
+    try {
+      const { data: profiel, error } = await sb.from('profiles')
+        .select('rol').eq('id', userId).maybeSingle();
+      if (error) console.warn('Profiel-fetch fout:', error);
+      if (profiel && profiel.rol) rol = String(profiel.rol).toLowerCase();
+    } catch (e) {
+      console.warn('Profiel-fetch mislukt:', e);
+    }
+    const isDocent = (rol === 'docent' || rol === 'admin');
+    window.location.replace(isDocent ? DOCENT_URL : LEERLING_URL);
+  }
+
+  // Bestaande sessie? meteen door.
+  (async function checkBestaandeSessie() {
+    try {
+      const { data } = await sb.auth.getSession();
+      if (data && data.session && data.session.user) {
+        await rolEnRedirect(data.session.user.id);
+      }
+    } catch (e) { /* niet-ingelogd, doe niets */ }
+  })();
+
+  formEl.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    toonFout('');
+    setBezig(true);
+    try {
+      const email = emailEl.value.trim();
+      const pw    = pwEl.value;
+      const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+      if (error) {
+        const msg = (error.message || '').toLowerCase();
+        if (msg.includes('invalid')) toonFout('E-mailadres of wachtwoord klopt niet.');
+        else if (msg.includes('email not confirmed')) toonFout('Account nog niet bevestigd. Mail je docent.');
+        else toonFout('Inloggen lukt niet: ' + error.message);
+        setBezig(false);
+        return;
+      }
+      if (!data || !data.user) {
+        toonFout('Inloggen mislukt. Probeer opnieuw.');
+        setBezig(false);
+        return;
+      }
+      await rolEnRedirect(data.user.id);
+    } catch (e) {
+      console.error(e);
+      toonFout('Onverwachte fout. Probeer opnieuw.');
+      setBezig(false);
+    }
+  });
+</script>
 </body>
 </html>
