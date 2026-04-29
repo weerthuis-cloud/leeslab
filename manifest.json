@@ -1,0 +1,32 @@
+{
+  "name": "Leeslab",
+  "short_name": "Leeslab",
+  "description": "Literair portfolio voor docenten Nederlands — KSH Haarlemmermeer",
+  "start_url": "docent_mobiel_v0.4.12.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#0f4c81",
+  "orientation": "portrait",
+  "lang": "nl",
+  "icons": [
+    {
+      "src": "leeslab_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "leeslab_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "leeslab_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
