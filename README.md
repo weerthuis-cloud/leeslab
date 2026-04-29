@@ -8,7 +8,8 @@ Dit is een testversie. Het doel van deze publicatie is een eerste evaluatieronde
 
 - `index.html` — gedeelde inlogpagina (v0.2) voor leerlingen en docenten
 - `leerlingportaal_v0.7.19.html` — leerlingomgeving (themalijst, leeslijst, portfolio)
-- `docent_v0.39.html` — docentenomgeving (klassen, voortgang, mondeling)
+- `docent_v0.41.html` — docentenomgeving (klassen, voortgang, mondeling). v0.41 verbergt persoonlijke leeslijsten van collega's uit de gemeenschappelijke boekencatalogus.
+- `docent_mobiel_v0.4.9.html` — mobiele docent-app (PWA): boekenlijst, eigen leesvoortgang met paginanummer, eigen leeslijst, notities, citaten en vragen. Ondersteunt parallel lezen. Volledig SVG-pictogrammen (Lucide-stijl) op alle plekken: tabs, navigatie, knoppen, status-meldingen, leeg-states. Leeslab-logo (blauw + oranje) op login en in header.
 
 ## Hoe testen
 
@@ -30,4 +31,4 @@ Geen leerlingdata in deze repo. Geen externe analytics. Bij positieve evaluatie 
 
 ## Versie
 
-Testronde april 2026. Entry-pagina v0.2 (29-04-2026): split-keuze vervangen door gedeelde inlog in KSH-stijl met automatische rol-redirect.
+Testronde april 2026. Entry-pagina v0.2 (29-04-2026): split-keuze vervangen door gedeelde inlog in KSH-stijl met automatische rol-redirect. Docentenportaal v0.41 (29-04-2026): boekencatalogus verbergt persoonlijke leeslijsten van collega's. Docent-mobiel v0.2 (29-04-2026): PWA voor docenten met eigen leesvoortgang en eigen leeslijst. Vereist SQL-migraties `migratie_docent_app_v0.1.sql` (eerste oplevering, twee nieuwe tabellen + RLS) en `migratie_docent_app_v0.2.sql` (status `persoonlijk` op books + RLS-aanpassing zodat leerlingen die nooit zien).
