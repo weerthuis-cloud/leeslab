@@ -9,7 +9,7 @@ Dit is een testversie. Het doel van deze publicatie is een eerste evaluatieronde
 - `index.html` — gedeelde inlogpagina (v0.2) voor leerlingen en docenten
 - `leerlingportaal_v0.7.19.html` — leerlingomgeving (themalijst, leeslijst, portfolio)
 - `docent_v0.41.html` — docentenomgeving (klassen, voortgang, mondeling). v0.41 verbergt persoonlijke leeslijsten van collega's uit de gemeenschappelijke boekencatalogus.
-- `docent_mobiel_v0.4.9.html` — mobiele docent-app (PWA): boekenlijst, eigen leesvoortgang met paginanummer, eigen leeslijst, notities, citaten en vragen. Ondersteunt parallel lezen. Volledig SVG-pictogrammen (Lucide-stijl) op alle plekken: tabs, navigatie, knoppen, status-meldingen, leeg-states. Leeslab-logo (blauw + oranje) op login en in header.
+- `docent_mobiel_v0.4.10.html` — mobiele docent-app (PWA): boekenlijst, eigen leesvoortgang met paginanummer, eigen leeslijst, notities, citaten en vragen. Ondersteunt parallel lezen. Volledig SVG-pictogrammen (Lucide-stijl) op alle plekken: tabs, navigatie, knoppen, status-meldingen, leeg-states. Leeslab-logo (blauw + oranje) op login en in header.
 
 ## Hoe testen
 
