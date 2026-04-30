@@ -5,10 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leeslab — KSH Haarlemmermeer</title>
 <!--
-  Leeslab entry-pagina v0.2 (29-04-2026)
+  Leeslab entry-pagina v0.3 (29-04-2026)
   Gedeelde inlog voor leerlingen en docenten in oude KSH-kleurstelling.
-  Na succesvolle login: rol uit profiles -> redirect naar leerling- of docentenportaal.
-  Vorige versie: ../_archief_landing/index_leeslab_v0.1.html (Leeslab cream-landing met split-keuze)
+  Na succesvolle login:
+    - leerling -> leerlingportaal
+    - docent op smartphone -> keuzescherm (mobiel of desktop)
+    - docent op tablet/laptop -> direct naar docent-desktop
+  Vorige versie: ../_archief_landing/index_leeslab_v0.2.html
 -->
 <style>
   :root {
@@ -17,9 +20,11 @@
     --ksh-blauw-diep: #002347;
     --ksh-oranje: #f39200;
     --ksh-oranje-licht: #ffb94d;
+    --ksh-oranje-diep: #c47200;
     --grijs-tekst: #2a2a2a;
     --grijs-secundair: #6b7280;
     --grijs-rand: #d1d5db;
+    --grijs-zacht: #f3f4f6;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; }
@@ -68,7 +73,7 @@
   input {
     width: 100%;
     padding: .7rem .9rem;
-    font-size: 1rem;
+    font-size: 16px;
     font-family: inherit;
     border: 1.5px solid var(--grijs-rand);
     border-radius: 8px;
@@ -79,7 +84,7 @@
     border-color: var(--ksh-blauw);
     background: white;
   }
-  button {
+  button.knop-primair {
     width: 100%;
     margin-top: 1.2rem;
     padding: .8rem;
@@ -93,8 +98,8 @@
     transition: background .15s;
     font-family: inherit;
   }
-  button:hover { background: var(--ksh-oranje-licht); }
-  button:disabled { opacity: .6; cursor: not-allowed; }
+  button.knop-primair:hover { background: var(--ksh-oranje-licht); }
+  button.knop-primair:disabled { opacity: .6; cursor: not-allowed; }
   .login-fout {
     color: #b40000;
     font-size: .9rem;
@@ -126,33 +131,128 @@
     font-size: .72rem;
     color: rgba(255,255,255,.75);
   }
+  /* === Keuze-scherm (docent op smartphone) === */
+  .keuze-rij {
+    display: flex; flex-direction: column; gap: .8rem;
+    margin-top: 1rem;
+  }
+  .keuze-knop {
+    display: flex; align-items: center; gap: .9rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--grijs-zacht);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    font-family: inherit;
+    color: var(--grijs-tekst);
+  }
+  .keuze-knop:hover {
+    border-color: var(--ksh-oranje);
+    background: white;
+  }
+  .keuze-knop.aanbevolen {
+    background: linear-gradient(135deg, var(--ksh-oranje) 0%, var(--ksh-oranje-diep) 100%);
+    color: white;
+  }
+  .keuze-knop.aanbevolen:hover {
+    border-color: var(--ksh-blauw);
+    filter: brightness(1.05);
+  }
+  .keuze-icoon {
+    width: 44px; height: 44px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.25);
+  }
+  .keuze-knop:not(.aanbevolen) .keuze-icoon {
+    background: var(--ksh-blauw);
+    color: white;
+  }
+  .keuze-icoon svg { width: 24px; height: 24px; }
+  .keuze-tekst { flex: 1; min-width: 0; }
+  .keuze-titel {
+    display: block;
+    font-size: 1rem; font-weight: 600;
+    line-height: 1.2;
+  }
+  .keuze-onder {
+    display: block;
+    font-size: .8rem; opacity: .85;
+    margin-top: .15rem;
+  }
+  .keuze-uitlog {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: .6rem;
+    background: none;
+    border: none;
+    color: var(--grijs-secundair);
+    font-size: .85rem;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
   <div class="login-kaart">
     <div class="logo-groot">KSH</div>
     <h2>Leeslab</h2>
-    <p class="login-sub">Log in met je schoolaccount</p>
 
-    <form id="login-form" autocomplete="on">
-      <label for="login-email">E-mailadres</label>
-      <input id="login-email" type="email" required autocomplete="username" autofocus>
+    <!-- LOGIN-WEERGAVE -->
+    <div id="weergave-login">
+      <p class="login-sub">Log in met je schoolaccount</p>
+      <form id="login-form" autocomplete="on">
+        <label for="login-email">E-mailadres</label>
+        <input id="login-email" type="email" required autocomplete="username" autofocus>
 
-      <label for="login-pw">Wachtwoord</label>
-      <input id="login-pw" type="password" required autocomplete="current-password">
+        <label for="login-pw">Wachtwoord</label>
+        <input id="login-pw" type="password" required autocomplete="current-password">
 
-      <button id="login-submit" type="submit">Inloggen</button>
-      <div id="login-fout" class="login-fout" aria-live="polite"></div>
-    </form>
+        <button id="login-submit" type="submit" class="knop-primair">Inloggen</button>
+        <div id="login-fout" class="login-fout" aria-live="polite"></div>
+      </form>
 
-    <div class="login-info">
-      KSH Haarlemmermeer, Nederlands bovenbouw.<br>
-      Problemen met inloggen? Mail je docent.
+      <div class="login-info">
+        KSH Haarlemmermeer, Nederlands bovenbouw.<br>
+        Problemen met inloggen? Mail je docent.
+      </div>
+    </div>
+
+    <!-- KEUZE-WEERGAVE (alleen docent op smartphone) -->
+    <div id="weergave-keuze" style="display: none;">
+      <p class="login-sub">Welkom <span id="keuze-naam"></span>. Hoe wil je verder?</p>
+      <div class="keuze-rij">
+        <button type="button" class="keuze-knop aanbevolen" data-doel="mobiel">
+          <span class="keuze-icoon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </span>
+          <span class="keuze-tekst">
+            <span class="keuze-titel">Mobiele app</span>
+            <span class="keuze-onder">Lezen, notities, citaten, vragen — naast je leesboek</span>
+          </span>
+        </button>
+        <button type="button" class="keuze-knop" data-doel="desktop">
+          <span class="keuze-icoon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+          </span>
+          <span class="keuze-tekst">
+            <span class="keuze-titel">Desktop-versie</span>
+            <span class="keuze-onder">Volledig pakket: klassen, mondeling, dashboard</span>
+          </span>
+        </button>
+      </div>
+      <button type="button" class="keuze-uitlog" id="keuze-uitlog-knop">Uitloggen</button>
     </div>
   </div>
 
   <p class="voet">
-    Testronde &middot; leerlingportaal <code>v0.7.19</code> &middot; docentenportaal <code>v0.39</code>
+    Testronde &middot; leerlingportaal <code>v0.7.19</code> &middot; docent <code>v0.41</code> &middot; mobiel <code>v0.4.12</code>
   </p>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -162,8 +262,10 @@
     url: 'https://vygkciuiptfyridhrxbp.supabase.co',
     key: 'sb_publishable_u-EHJ6MaNTuPnO3SLWGEWA_IKGbFHlh'
   };
-  const LEERLING_URL = 'leerlingportaal_v0.7.19.html';
-  const DOCENT_URL   = 'docent_v0.39.html';
+  const LEERLING_URL       = 'leerlingportaal_v0.7.19.html';
+  const DOCENT_DESKTOP_URL = 'docent_v0.41.html';
+  const DOCENT_MOBIEL_URL  = 'docent_mobiel_v0.4.12.html';
+  const SMARTPHONE_DREMPEL = 768;  // viewport-breedte in pixels
 
   const sb = supabase.createClient(SUPABASE.url, SUPABASE.key, {
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
@@ -174,6 +276,9 @@
   const pwEl     = document.getElementById('login-pw');
   const btnEl    = document.getElementById('login-submit');
   const foutEl   = document.getElementById('login-fout');
+  const weergaveLogin = document.getElementById('weergave-login');
+  const weergaveKeuze = document.getElementById('weergave-keuze');
+  const keuzeNaamEl   = document.getElementById('keuze-naam');
 
   function setBezig(bezig) {
     btnEl.disabled = bezig;
@@ -181,22 +286,47 @@
   }
   function toonFout(msg) { foutEl.textContent = msg || ''; }
 
-  async function rolEnRedirect(userId) {
-    // Rol uit profiles - zelfde bron als de portalen zelf gebruiken.
-    let rol = 'leerling';
-    try {
-      const { data: profiel, error } = await sb.from('profiles')
-        .select('rol').eq('id', userId).maybeSingle();
-      if (error) console.warn('Profiel-fetch fout:', error);
-      if (profiel && profiel.rol) rol = String(profiel.rol).toLowerCase();
-    } catch (e) {
-      console.warn('Profiel-fetch mislukt:', e);
-    }
-    const isDocent = (rol === 'docent' || rol === 'admin');
-    window.location.replace(isDocent ? DOCENT_URL : LEERLING_URL);
+  function isSmartphone() {
+    // Combinatie van viewport-breedte en touch. Tablet in portrait kan ook
+    // < 768 zijn, dat vinden we OK: tablet-docenten krijgen ook de keuze.
+    return window.innerWidth < SMARTPHONE_DREMPEL;
   }
 
-  // Bestaande sessie? meteen door.
+  function toonKeuzeScherm(voornaam) {
+    keuzeNaamEl.textContent = voornaam ? voornaam : '';
+    weergaveLogin.style.display = 'none';
+    weergaveKeuze.style.display = 'block';
+  }
+
+  async function laadProfiel(userId) {
+    try {
+      const { data: profiel, error } = await sb.from('profiles')
+        .select('rol,voornaam').eq('id', userId).maybeSingle();
+      if (error) console.warn('Profiel-fetch fout:', error);
+      return profiel || null;
+    } catch (e) {
+      console.warn('Profiel-fetch mislukt:', e);
+      return null;
+    }
+  }
+
+  async function rolEnRedirect(userId) {
+    const profiel = await laadProfiel(userId);
+    const rol = (profiel && profiel.rol) ? String(profiel.rol).toLowerCase() : 'leerling';
+    const isDocent = (rol === 'docent' || rol === 'admin');
+    if (!isDocent) {
+      window.location.replace(LEERLING_URL);
+      return;
+    }
+    // Docent: smartphone -> keuzescherm; anders direct naar desktop
+    if (isSmartphone()) {
+      toonKeuzeScherm(profiel ? profiel.voornaam : '');
+    } else {
+      window.location.replace(DOCENT_DESKTOP_URL);
+    }
+  }
+
+  // Bestaande sessie? meteen door naar redirect/keuze.
   (async function checkBestaandeSessie() {
     try {
       const { data } = await sb.auth.getSession();
@@ -233,6 +363,22 @@
       toonFout('Onverwachte fout. Probeer opnieuw.');
       setBezig(false);
     }
+  });
+
+  // Keuzescherm-acties
+  document.querySelectorAll('.keuze-knop').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const doel = btn.getAttribute('data-doel');
+      window.location.replace(doel === 'mobiel' ? DOCENT_MOBIEL_URL : DOCENT_DESKTOP_URL);
+    });
+  });
+
+  document.getElementById('keuze-uitlog-knop').addEventListener('click', async () => {
+    try { await sb.auth.signOut(); } catch (_) {}
+    weergaveKeuze.style.display = 'none';
+    weergaveLogin.style.display = 'block';
+    pwEl.value = '';
+    emailEl.focus();
   });
 </script>
 </body>
